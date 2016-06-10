@@ -65,23 +65,13 @@ const bells = [
   6    // 23
 ];
 
-const format_watch = (hour) => {
-  return `${watches[hour]} watch`;
-};
-
-const format_bells = (hour, minute, extended_output = false) => {
+export function (hour, minute) {
   const hour_bells = bells[hour];
   const half_hour_bell = (minute >= 30) ? 1 : 0;
   const bells_count = (hour_bells + half_hour_bell) % 8;
-  const bells_label = (bells_count > 1) ? 'bells' : 'bell';
 
-  return `${bells_count} ${(extended_output) ? bells_label : '🔔'} `;
+  return {
+    bells: bells_count,
+    watch: watches[hour]
+  };
 };
-
-const d = new Date();
-const hour = d.getHours();
-const minute = d.getMinutes();
-
-console.log(`${format_bells(hour, minute)}`);
-console.log(`---`);
-console.log(`${format_bells(hour, minute, true)}, ${format_watch(hour)}`);
